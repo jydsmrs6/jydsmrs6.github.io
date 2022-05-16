@@ -14602,7 +14602,15 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 ### Introduction
 
 </div><p>With a rising concern for the world's health and climate change, all things energy are a big topic. Researchers are finding the best ways to harness renewable energy efficiently, companies are turning away from the use of fossil fuels, people are buying electric cars, and electric people are starting to rely on their electric companies a little less, by installing their own solar panels. With all this happening, there are still large providers in every state that a huge portion of the United States rely on to get their electricity, and over the years, their means of obtaining and distributing said electricity may vary, whether they start relying more on nuclear plants, solar panels, or other more renewable sources, but how has this, among many other obstables, investments, failures, or more impacted the price of electricity.</p>
-<p>This analysis and tutorial will take a look at the U.S Department of Energy's data on the average price of electricity in each US state from the years 1990 - 2020 in their dataset titled "Average Price (Cents/kilowatthour) by State by Provider, 1990-2020". By taking a look at this data, we hope to find possible trends in prices accross the nation, in specific states or regions, and across time.</p>
+<p>To dive deeper into understanding the pricing of electricity throughout the United States, will take a look at the U.S Department of Energy's data on the average price of electricity in each US state from the years 1990 - 2020 in their dataset titled "Average Price (Cents/kilowatthour) by State by Provider, 1990-2020". By taking a look at this data, we hope to find possible trends in prices accross the nation, in specific states or regions, and across time.</p>
+<p>This analysis and tutorial will take a look at and walk through an example set of data and it's analysis to help guide the reader to be able to do their own analysis on a dataset of their choosing. This tutorial will focus on "The Data Science Pipeline", which is used as a process to collect data, manage it, explore results, and test against it. It consists of 5 main phases that we will touch on:</p>
+<ul>
+<li>Data Collection/curation + parsing</li>
+<li>Data Management</li>
+<li>Exploratory Data Analysis</li>
+<li>Hypothesis Testing</li>
+<li>Communication of insights attained</li>
+</ul>
 <div align="center">
 
 ### Required Tools and Libraries
@@ -14614,6 +14622,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <li>numpys</li>
 <li>matplotlib.pyplot</li>
 <li>re</li>
+<li>json</li>
 <li>datetime</li>
 <li>bs4</li>
 </ol>
@@ -14656,7 +14665,17 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 ### Data Collection
 
-</div>
+</div><p>This phase consists of finding a data set. This can be done by searching online and finding links to datasets, or finding downloads to save to your working directory. In the below example, I searched data.gov for an aggregate of datasets published by the Department of Energy. By doing so, I found a link to a json file that contains a json object of datasets collected and maintained by the Dept. of Energy. Once this json link was acquired, I used the urllib.request and json libraries to open and read in the json file to a json object. This takes the contents of that file and stores them in a variable named 'data' that I can later manipulate. Using this json object, I then went through all of the datasets until I found the one that I wanted to use, which I did by searching for the object with the title "Annual Electricity Price by State". I knew this was the title of the information I wanted beceause I looked throught the object manually to find the dataset I would like to access, but there were many more interesting datasets that can be used for further exploration. Once I found this specific dataset, I parsed through it to find the url of the excel spreadsheet that contained the data and used df.read_excel to read it in, making sure to specify which line the column headers are on. This stored the dataset in a pandas dataframe, which acts as a table with multiple rows and columns of the data that can be easily manipulated to further explore the data.</p>
+<p>To read more about these specific functions or libraries and their uses, you can use the following resources:</p>
+<ul>
+<li>Department of Energy Open Data: <a href="https://dashboard.data.gov/offices/detail/49019/2021-12-31#metrics_total_records">https://dashboard.data.gov/offices/detail/49019/2021-12-31#metrics_total_records</a> </li>
+<li>urllib.request: <a href="https://docs.python.org/3/library/urllib.request.html">https://docs.python.org/3/library/urllib.request.html</a></li>
+<li>json: <a href="https://docs.python.org/3/library/json.html">https://docs.python.org/3/library/json.html</a></li>
+<li>pandas: <a href="https://pandas.pydata.org/docs/index.html">https://pandas.pydata.org/docs/index.html</a></li>
+<li>pandas.read_excel: <a href="https://pandas.pydata.org/pandas-docs/version/0.20/generated/pandas.read_excel.html">https://pandas.pydata.org/pandas-docs/version/0.20/generated/pandas.read_excel.html</a></li>
+<li>pandas.DataFrame: <a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html">https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html</a></li>
+</ul>
+
 </div>
 </div>
 </div>
@@ -14681,7 +14700,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="n">data_url</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">df</span>
 </pre></div>
 
      </div>
@@ -14794,6 +14813,650 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
       <td>NaN</td>
       <td>18.00</td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4600</th>
+      <td>1990</td>
+      <td>WA</td>
+      <td>Full-Service Providers</td>
+      <td>4.39</td>
+      <td>4.15</td>
+      <td>2.39</td>
+      <td>NaN</td>
+      <td>3.13</td>
+      <td>3.40</td>
+    </tr>
+    <tr>
+      <th>4601</th>
+      <td>1990</td>
+      <td>WI</td>
+      <td>Full-Service Providers</td>
+      <td>6.63</td>
+      <td>5.78</td>
+      <td>3.99</td>
+      <td>NaN</td>
+      <td>6.47</td>
+      <td>5.37</td>
+    </tr>
+    <tr>
+      <th>4602</th>
+      <td>1990</td>
+      <td>WV</td>
+      <td>Full-Service Providers</td>
+      <td>5.90</td>
+      <td>5.36</td>
+      <td>3.56</td>
+      <td>NaN</td>
+      <td>8.19</td>
+      <td>4.73</td>
+    </tr>
+    <tr>
+      <th>4603</th>
+      <td>1990</td>
+      <td>WY</td>
+      <td>Full-Service Providers</td>
+      <td>5.97</td>
+      <td>5.17</td>
+      <td>3.47</td>
+      <td>NaN</td>
+      <td>7.90</td>
+      <td>4.21</td>
+    </tr>
+    <tr>
+      <th>4604</th>
+      <td>1990</td>
+      <td>US</td>
+      <td>Full-Service Providers</td>
+      <td>7.83</td>
+      <td>7.34</td>
+      <td>4.74</td>
+      <td>NaN</td>
+      <td>6.40</td>
+      <td>6.57</td>
+    </tr>
+  </tbody>
+</table>
+<p>4605 rows × 9 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>Now that we have the data properly formatted in a pandas DataFrame, we can clearly see the format of this data. This data is collected each year in each of the states across the US and contains the avaerage residential, commercial, and industrial, transportation, and other costs of electricity by provider company. This results in a total of 4605 rows of data and 9 columns, labeled "Year", "State", "Industry Sector Category", "Residential", "Commercial", "Industrial", "Transportation", "Other", and "Total".</p>
+
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center">
+
+### Data Management and Representation
+
+</div><p>After the data has been collected, we want to find ways to manage the data so it can be used properly later in the data analysis phase. Some things that you may want to consider as part of your data are the data types represented in each column, and any missing values. When you are managing your data, even when the data seems to be fully filled out, there may be some missing data. In our case, all years 2002 and prior have missing values in the 'Transporation' column, but values in the 'Other' column, but every year post 2002 has that switched, with values in the 'Transportation' column, but not in the 'Other' column. Because of this, we will be handling our missing data by setting it all to 0 and then combining the 'Transportation' and 'Other' columns into one. You can see this here:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Other&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Other&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Transportation&#39;</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Transportation&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Year</th>
+      <th>State</th>
+      <th>Industry Sector Category</th>
+      <th>Residential</th>
+      <th>Commercial</th>
+      <th>Industrial</th>
+      <th>Other</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2020</td>
+      <td>AK</td>
+      <td>Total Electric Industry</td>
+      <td>22.57</td>
+      <td>19.58</td>
+      <td>15.88</td>
+      <td>0.00</td>
+      <td>19.82</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2020</td>
+      <td>AL</td>
+      <td>Total Electric Industry</td>
+      <td>12.58</td>
+      <td>11.55</td>
+      <td>5.87</td>
+      <td>0.00</td>
+      <td>9.84</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2020</td>
+      <td>AR</td>
+      <td>Total Electric Industry</td>
+      <td>10.41</td>
+      <td>8.61</td>
+      <td>5.89</td>
+      <td>13.32</td>
+      <td>8.32</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2020</td>
+      <td>AZ</td>
+      <td>Total Electric Industry</td>
+      <td>12.27</td>
+      <td>10.11</td>
+      <td>6.07</td>
+      <td>9.38</td>
+      <td>10.44</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2020</td>
+      <td>CA</td>
+      <td>Total Electric Industry</td>
+      <td>20.45</td>
+      <td>17.53</td>
+      <td>14.27</td>
+      <td>10.07</td>
+      <td>18.00</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>4600</th>
+      <td>1990</td>
+      <td>WA</td>
+      <td>Full-Service Providers</td>
+      <td>4.39</td>
+      <td>4.15</td>
+      <td>2.39</td>
+      <td>3.13</td>
+      <td>3.40</td>
+    </tr>
+    <tr>
+      <th>4601</th>
+      <td>1990</td>
+      <td>WI</td>
+      <td>Full-Service Providers</td>
+      <td>6.63</td>
+      <td>5.78</td>
+      <td>3.99</td>
+      <td>6.47</td>
+      <td>5.37</td>
+    </tr>
+    <tr>
+      <th>4602</th>
+      <td>1990</td>
+      <td>WV</td>
+      <td>Full-Service Providers</td>
+      <td>5.90</td>
+      <td>5.36</td>
+      <td>3.56</td>
+      <td>8.19</td>
+      <td>4.73</td>
+    </tr>
+    <tr>
+      <th>4603</th>
+      <td>1990</td>
+      <td>WY</td>
+      <td>Full-Service Providers</td>
+      <td>5.97</td>
+      <td>5.17</td>
+      <td>3.47</td>
+      <td>7.90</td>
+      <td>4.21</td>
+    </tr>
+    <tr>
+      <th>4604</th>
+      <td>1990</td>
+      <td>US</td>
+      <td>Full-Service Providers</td>
+      <td>7.83</td>
+      <td>7.34</td>
+      <td>4.74</td>
+      <td>6.40</td>
+      <td>6.57</td>
+    </tr>
+  </tbody>
+</table>
+<p>4605 rows × 8 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>The way you handle missing data can vary, but you always want to handle it in a way that makes sense with your data and how you are evaluating it. To learn more about missing data in pandas, visit <a href="https://www.geeksforgeeks.org/working-with-missing-data-in-pandas/">https://www.geeksforgeeks.org/working-with-missing-data-in-pandas/</a>.</p>
+<p>These data types can be put into two main categories: Numerical data and Categorical data. Numerical data is data that uses integers or real numbers to express the data. This can be further broken down into interval scale or ratio scale.Interval scale represents data with a fixed but arbitrary interval, like dates, and degrees farenheit, where ratio scale is a scale of measurement that posesses a true-zero origin, like degrees kelvin or weight in grams. Categorical data on the other hand, is data that takes a value from a finite set, and can be further brokwn down into nominal data and ordinal data. Nominal data has values with names or categories, like in marital status or color, where ordinal data has a sort of ordering over the values, like in ratings ("strongly like", "like", "neutral", "strongly dislike").</p>
+<p>Based on these types of data, there may be certain things that you want to do to manipulate your data and explore the relationships between the variables collected in the dataset. To demonstrate this, we will work to manage and represent our data in different ways by collecting different groupings, averages, and more, into different smaller, more focused DataFrames, or by creating new columns in the data tables, which can be seen here:</p>
+
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">yearly_averages</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="n">yearly_groupings</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+
+<span class="n">state_groupings</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;State&#39;</span><span class="p">)</span>
+
+<span class="n">company_groupings</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Industry Sector Category&#39;</span><span class="p">)</span>
+
+<span class="n">yearly_averages</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[&nbsp;]:</div>
+
+
+
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Residential</th>
+      <th>Commercial</th>
+      <th>Industrial</th>
+      <th>Other</th>
+      <th>Total</th>
+    </tr>
+    <tr>
+      <th>Year</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1990</th>
+      <td>7.665385</td>
+      <td>6.968077</td>
+      <td>4.984038</td>
+      <td>7.384615</td>
+      <td>6.475577</td>
+    </tr>
+    <tr>
+      <th>1991</th>
+      <td>7.871923</td>
+      <td>7.123269</td>
+      <td>5.105385</td>
+      <td>7.546538</td>
+      <td>6.648654</td>
+    </tr>
+    <tr>
+      <th>1992</th>
+      <td>8.047500</td>
+      <td>7.248846</td>
+      <td>5.129423</td>
+      <td>7.725577</td>
+      <td>6.737500</td>
+    </tr>
+    <tr>
+      <th>1993</th>
+      <td>8.206923</td>
+      <td>7.351346</td>
+      <td>5.212308</td>
+      <td>7.917500</td>
+      <td>6.882308</td>
+    </tr>
+    <tr>
+      <th>1994</th>
+      <td>8.299423</td>
+      <td>7.337308</td>
+      <td>5.141154</td>
+      <td>7.999615</td>
+      <td>6.891731</td>
+    </tr>
+    <tr>
+      <th>1995</th>
+      <td>8.382500</td>
+      <td>7.342885</td>
+      <td>5.047500</td>
+      <td>8.132115</td>
+      <td>6.911923</td>
+    </tr>
+    <tr>
+      <th>1996</th>
+      <td>8.416038</td>
+      <td>7.393962</td>
+      <td>4.978868</td>
+      <td>8.176226</td>
+      <td>6.869245</td>
+    </tr>
+    <tr>
+      <th>1997</th>
+      <td>7.670000</td>
+      <td>7.145313</td>
+      <td>4.693437</td>
+      <td>6.688594</td>
+      <td>6.702969</td>
+    </tr>
+    <tr>
+      <th>1998</th>
+      <td>7.846563</td>
+      <td>6.900000</td>
+      <td>4.700156</td>
+      <td>6.581719</td>
+      <td>6.637812</td>
+    </tr>
+    <tr>
+      <th>1999</th>
+      <td>6.802714</td>
+      <td>5.919143</td>
+      <td>4.235286</td>
+      <td>8.455143</td>
+      <td>7.913071</td>
+    </tr>
+    <tr>
+      <th>2000</th>
+      <td>7.214551</td>
+      <td>6.224744</td>
+      <td>4.918910</td>
+      <td>6.865769</td>
+      <td>6.189615</td>
+    </tr>
+    <tr>
+      <th>2001</th>
+      <td>7.289695</td>
+      <td>6.738720</td>
+      <td>4.809756</td>
+      <td>12.206220</td>
+      <td>6.602744</td>
+    </tr>
+    <tr>
+      <th>2002</th>
+      <td>7.543478</td>
+      <td>6.690745</td>
+      <td>4.905839</td>
+      <td>7.786770</td>
+      <td>6.582422</td>
+    </tr>
+    <tr>
+      <th>2003</th>
+      <td>7.329130</td>
+      <td>6.778137</td>
+      <td>4.983851</td>
+      <td>2.364969</td>
+      <td>6.601801</td>
+    </tr>
+    <tr>
+      <th>2004</th>
+      <td>7.366488</td>
+      <td>25.884286</td>
+      <td>4.959107</td>
+      <td>2.931667</td>
+      <td>6.597143</td>
+    </tr>
+    <tr>
+      <th>2005</th>
+      <td>7.772275</td>
+      <td>7.446766</td>
+      <td>5.578802</td>
+      <td>3.238743</td>
+      <td>7.227545</td>
+    </tr>
+    <tr>
+      <th>2006</th>
+      <td>8.914970</td>
+      <td>8.203234</td>
+      <td>6.258383</td>
+      <td>3.759760</td>
+      <td>8.006467</td>
+    </tr>
+    <tr>
+      <th>2007</th>
+      <td>9.316587</td>
+      <td>8.457545</td>
+      <td>6.543653</td>
+      <td>4.075988</td>
+      <td>8.356287</td>
+    </tr>
+    <tr>
+      <th>2008</th>
+      <td>10.330941</td>
+      <td>9.015471</td>
+      <td>7.067294</td>
+      <td>4.404588</td>
+      <td>8.964471</td>
+    </tr>
+    <tr>
+      <th>2009</th>
+      <td>10.362118</td>
+      <td>8.884412</td>
+      <td>6.734588</td>
+      <td>4.145706</td>
+      <td>8.808235</td>
+    </tr>
+    <tr>
+      <th>2010</th>
+      <td>10.470240</td>
+      <td>9.006766</td>
+      <td>6.827066</td>
+      <td>4.474192</td>
+      <td>8.863713</td>
+    </tr>
+    <tr>
+      <th>2011</th>
+      <td>10.749878</td>
+      <td>9.246341</td>
+      <td>6.928354</td>
+      <td>4.518049</td>
+      <td>9.074390</td>
+    </tr>
+    <tr>
+      <th>2012</th>
+      <td>10.787317</td>
+      <td>9.106220</td>
+      <td>6.757500</td>
+      <td>4.170427</td>
+      <td>8.997988</td>
+    </tr>
+    <tr>
+      <th>2013</th>
+      <td>11.018841</td>
+      <td>9.292256</td>
+      <td>6.923171</td>
+      <td>4.466341</td>
+      <td>9.207195</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>11.323593</td>
+      <td>9.554251</td>
+      <td>7.174790</td>
+      <td>4.448024</td>
+      <td>9.514910</td>
+    </tr>
+    <tr>
+      <th>2015</th>
+      <td>11.578623</td>
+      <td>9.508802</td>
+      <td>7.010778</td>
+      <td>4.586168</td>
+      <td>9.463174</td>
+    </tr>
+    <tr>
+      <th>2016</th>
+      <td>11.547246</td>
+      <td>9.350838</td>
+      <td>6.811018</td>
+      <td>4.503772</td>
+      <td>9.321317</td>
+    </tr>
+    <tr>
+      <th>2017</th>
+      <td>11.834551</td>
+      <td>9.540898</td>
+      <td>6.970240</td>
+      <td>4.365569</td>
+      <td>9.530120</td>
+    </tr>
+    <tr>
+      <th>2018</th>
+      <td>11.997246</td>
+      <td>9.660060</td>
+      <td>7.127246</td>
+      <td>4.376347</td>
+      <td>9.720539</td>
+    </tr>
+    <tr>
+      <th>2019</th>
+      <td>12.156886</td>
+      <td>9.724132</td>
+      <td>7.043054</td>
+      <td>4.427545</td>
+      <td>9.751198</td>
+    </tr>
+    <tr>
+      <th>2020</th>
+      <td>12.037006</td>
+      <td>9.646467</td>
+      <td>6.866407</td>
+      <td>4.574731</td>
+      <td>9.737246</td>
+    </tr>
   </tbody>
 </table>
 </div>
@@ -14812,30 +15475,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center">
+<p>Above this, we have created one new dataframe with averages of each columns by year</p>
+<p>To learn more about the types of data, you can visit <a href="https://www.voxco.com/blog/categorical-data-vs-numerical-data/">https://www.voxco.com/blog/categorical-data-vs-numerical-data/</a>.</p>
 
-### Data Management and Representation
-
 </div>
 </div>
 </div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper">
