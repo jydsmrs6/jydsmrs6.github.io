@@ -14579,14 +14579,8 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center">
+<h1 id="CMSC-320-Final-Project:-How-Much-Does-Electricity-Cost-the-US?">CMSC 320 Final Project: How Much Does Electricity Cost the US?<a class="anchor-link" href="#CMSC-320-Final-Project:-How-Much-Does-Electricity-Cost-the-US?">&#182;</a></h1><h5 id="A-Tutorial-and-Analysis-by-Jay-Desmarais">A Tutorial and Analysis by Jay Desmarais<a class="anchor-link" href="#A-Tutorial-and-Analysis-by-Jay-Desmarais">&#182;</a></h5><hr>
 
-# CMSC 320 Final Project: How Much Does Electricity Cost the US?
-
-##### A Tutorial and Analysis by Jay Desmarais
-***
-
-</div>
 </div>
 </div>
 </div>
@@ -14597,11 +14591,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center">
-
-### Introduction
-
-</div><p>With a rising concern for the world's health and climate change, all things energy are a big topic. Researchers are finding the best ways to harness renewable energy efficiently, companies are turning away from the use of fossil fuels, people are buying electric cars, and electric people are starting to rely on their electric companies a little less, by installing their own solar panels. With all this happening, there are still large providers in every state that a huge portion of the United States rely on to get their electricity, and over the years, their means of obtaining and distributing said electricity may vary, whether they start relying more on nuclear plants, solar panels, or other more renewable sources, but how has this, among many other obstables, investments, failures, or more impacted the price of electricity.</p>
+<h3 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h3><p>With a rising concern for the world's health and climate change, all things energy are a big topic. Researchers are finding the best ways to harness renewable energy efficiently, companies are turning away from the use of fossil fuels, people are buying electric cars, and electric people are starting to rely on their electric companies a little less, by installing their own solar panels. With all this happening, there are still large providers in every state that a huge portion of the United States rely on to get their electricity, and over the years, their means of obtaining and distributing said electricity may vary, whether they start relying more on nuclear plants, solar panels, or other more renewable sources, but how has this, among many other obstables, investments, failures, or more impacted the price of electricity.</p>
 <p>To dive deeper into understanding the pricing of electricity throughout the United States, will take a look at the U.S Department of Energy's data on the average price of electricity in each US state from the years 1990 - 2020 in their dataset titled "Average Price (Cents/kilowatthour) by State by Provider, 1990-2020". By taking a look at this data, we hope to find possible trends in prices accross the nation, in specific states or regions, and across time.</p>
 <p>This analysis and tutorial will take a look at and walk through an example set of data and it's analysis to help guide the reader to be able to do their own analysis on a dataset of their choosing. This tutorial will focus on "The Data Science Pipeline", which is used as a process to collect data, manage it, explore results, and test against it. It consists of 5 main phases that we will touch on:</p>
 <ul>
@@ -14611,11 +14601,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <li>Hypothesis Testing</li>
 <li>Communication of insights attained</li>
 </ul>
-<div align="center">
-
-### Required Tools and Libraries
-
-</div><p>The following tools and libraries are required for different aspects of this tutorial:</p>
+<h3 id="Required-Tools-and-Libraries">Required Tools and Libraries<a class="anchor-link" href="#Required-Tools-and-Libraries">&#182;</a></h3><p>The following tools and libraries are required for different aspects of this tutorial:</p>
 <ol>
 <li>urllib.request </li>
 <li>pandas</li>
@@ -14657,11 +14643,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center">
-
-### Data Collection
-
-</div><p>This phase consists of finding a data set. This can be done by searching online and finding links to datasets, or finding downloads to save to your working directory. In the below example, I searched data.gov for an aggregate of datasets published by the Department of Energy. By doing so, I found a link to a json file that contains a json object of datasets collected and maintained by the Dept. of Energy. Once this json link was acquired, I used the urllib.request and json libraries to open and read in the json file to a json object. This takes the contents of that file and stores them in a variable named 'data' that I can later manipulate. Using this json object, I then went through all of the datasets until I found the one that I wanted to use, which I did by searching for the object with the title "Annual Electricity Price by State". I knew this was the title of the information I wanted beceause I looked throught the object manually to find the dataset I would like to access, but there were many more interesting datasets that can be used for further exploration. Once I found this specific dataset, I parsed through it to find the url of the excel spreadsheet that contained the data and used df.read_excel to read it in, making sure to specify which line the column headers are on. This stored the dataset in a pandas dataframe, which acts as a table with multiple rows and columns of the data that can be easily manipulated to further explore the data.</p>
+<h3 id="Data-Collection">Data Collection<a class="anchor-link" href="#Data-Collection">&#182;</a></h3><p>This phase consists of finding a data set. This can be done by searching online and finding links to datasets, or finding downloads to save to your working directory. In the below example, I searched data.gov for an aggregate of datasets published by the Department of Energy. By doing so, I found a link to a json file that contains a json object of datasets collected and maintained by the Dept. of Energy. Once this json link was acquired, I used the urllib.request and json libraries to open and read in the json file to a json object. This takes the contents of that file and stores them in a variable named 'data' that I can later manipulate. Using this json object, I then went through all of the datasets until I found the one that I wanted to use, which I did by searching for the object with the title "Annual Electricity Price by State". I knew this was the title of the information I wanted beceause I looked throught the object manually to find the dataset I would like to access, but there were many more interesting datasets that can be used for further exploration. Once I found this specific dataset, I parsed through it to find the url of the excel spreadsheet that contained the data and used df.read_excel to read it in, making sure to specify which line the column headers are on. This stored the dataset in a pandas dataframe, which acts as a table with multiple rows and columns of the data that can be easily manipulated to further explore the data.</p>
 <p>To read more about these specific functions or libraries and their uses, you can use the following resources:</p>
 <ul>
 <li>Department of Energy Open Data: <a href="https://dashboard.data.gov/offices/detail/49019/2021-12-31#metrics_total_records">https://dashboard.data.gov/offices/detail/49019/2021-12-31#metrics_total_records</a> </li>
@@ -14912,11 +14894,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center">
-
-### Data Management and Representation
-
-</div><p>After the data has been collected, we want to find ways to manage the data so it can be used properly later in the data analysis phase. Some things that you may want to consider as part of your data are the data types represented in each column, and any missing values. When you are managing your data, even when the data seems to be fully filled out, there may be some missing data. In our case, all years 2002 and prior have missing values in the 'Transporation' column, but values in the 'Other' column, but every year post 2002 has that switched, with values in the 'Transportation' column, but not in the 'Other' column. Because of this, we will be handling our missing data by setting it all to 0 and then combining the 'Transportation' and 'Other' columns into one. You can see this here:</p>
+<h3 id="Data-Management-and-Representation">Data Management and Representation<a class="anchor-link" href="#Data-Management-and-Representation">&#182;</a></h3><p>After the data has been collected, we want to find ways to manage the data so it can be used properly later in the data analysis phase. Some things that you may want to consider as part of your data are the data types represented in each column, and any missing values. When you are managing your data, even when the data seems to be fully filled out, there may be some missing data. In our case, all years 2002 and prior have missing values in the 'Transporation' column, but values in the 'Other' column, but every year post 2002 has that switched, with values in the 'Transportation' column, but not in the 'Other' column. Because of this, we will be handling our missing data by setting it all to 0 and then combining the 'Transportation' and 'Other' columns into one. You can see this here:</p>
 
 </div>
 </div>
@@ -15174,11 +15152,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center">
-
-### Exploratory Data Analysis
-
-</div><p>During the data analysis phase, we want to take a look at and visualize the data in different ways. To do this, we will chart the data in multiple different ways. By doing so, we can find trends or certain supporting analysis for any claims or predictions we may have about the data.</p>
+<h3 id="Exploratory-Data-Analysis">Exploratory Data Analysis<a class="anchor-link" href="#Exploratory-Data-Analysis">&#182;</a></h3><p>During the data analysis phase, we want to take a look at and visualize the data in different ways. To do this, we will chart the data in multiple different ways. By doing so, we can find trends or certain supporting analysis for any claims or predictions we may have about the data. Once the data is graphed, we can easily take a look at things like skew, symmetry, patterns, and trends. With this information, we can guide further exploration and our potential findings or hypotheses. To learn more about some of these things, visit the following link: <a href="https://towardsdatascience.com/skewed-data-a-problem-to-your-statistical-model-9a6b5bb74e37">https://towardsdatascience.com/skewed-data-a-problem-to-your-statistical-model-9a6b5bb74e37</a>.</p>
 <p>In our case, we will be plotting each of our formatted groups and dataframes to visualize what the data may be showing. To chart out our results, we will use tools like matplotlib.pyplot and seaborns. These tools help to simply graph out data and add titles, legends, and more. To learn more about these tools, visit their websites at <a href="https://matplotlib.org/3.5.0/api/_as_gen/matplotlib.pyplot.html">https://matplotlib.org/3.5.0/api/_as_gen/matplotlib.pyplot.html</a> and <a href="https://seaborn.pydata.org">https://seaborn.pydata.org</a> respectively.</p>
 
 </div>
@@ -15434,11 +15408,7 @@ jp-needs-light-background
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center">
-
-### Hypothesis Testing
-
-</div>
+<h3 id="Hypothesis-Testing">Hypothesis Testing<a class="anchor-link" href="#Hypothesis-Testing">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -15465,14 +15435,26 @@ jp-needs-light-background
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center">
+<h3 id="Communication-of-Insights-Attained">Communication of Insights Attained<a class="anchor-link" href="#Communication-of-Insights-Attained">&#182;</a></h3>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
 
-### Communication of Insights Attained
+     </div>
+</div>
+</div>
+</div>
 
-</div>
-</div>
-</div>
-</div>
 </div>
 </body>
 
